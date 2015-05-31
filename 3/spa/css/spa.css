@@ -1,27 +1,32 @@
-body {
-  width: 100%
-  height: 100%
-  overflow: hidden;
-  background-color: #777;
-}
+/*
+* spa.css
+* Root namespace styles
+*/
 
+/** Begin reset */
+/** End reset */
+
+/** Begin standard selectors */
+/** End standard selectors */
+
+
+/** Begin spa namespace selectors */
 #spa {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  bottom: 8px;
-  right: 8px;
-  border-radius: 8px 8px 0 8px;
-  background-color: #fff;
-}
+  top : 8px;
+  left : 8px;
+  bottom : 8px;
+  right : 8px;
 
-.spa-slider {
-  position: absolute;
-  bottom: 0;
-  right: 2px;
-  width: 300px;
-  height: 16px;
-  cursor: pointer;
-  border-radius: 8px 0 0 0;
-  background-color: #f00;
+  min-height : 500px;
+  min-width : 500px;
+  overflow : hidden;
+
+  background-color : #fff;
+  border-radius : 0 8px 0 8px;
 }
+/** End spa namespace selectors */
+
+/** Begin utility selectors */
+/** End utility selectors */
+
