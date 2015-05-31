@@ -13,6 +13,12 @@
 
 spa.shell = (function (){
 //----------BEGIN MODULE SCOPE VARIABLES----------
+  var
+    configMap = {},
+    stateMap = {},
+    jqueryMap = {},
+    setJqueryMap, initModule;
+
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
