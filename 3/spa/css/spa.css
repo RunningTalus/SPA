@@ -4,9 +4,15 @@
 */
 
 /** Begin reset */
+* {}
+h1,h2,h3,h4,h5,h6,p {}
+ol,ul,dl {}
 /** End reset */
 
 /** Begin standard selectors */
+body {}
+a {}
+strong {}
 /** End standard selectors */
 
 
@@ -28,5 +34,7 @@
 /** End spa namespace selectors */
 
 /** Begin utility selectors */
+.spa-x-select {}
+.spa-x-clearfloat {}
 /** End utility selectors */
 
