@@ -36,10 +36,10 @@ spa.shell = (function (){
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
+// Reserved for functions that don't interact with page elements.
 //----------END UTILITY METHODS----------
 
 //----------BEGIN DOM METHODS----------
-
 // Begin DOM method /setJqueryMap/
 setJqueryMap = function () {
   var $container = stateMap.$container;
@@ -49,9 +49,18 @@ setJqueryMap = function () {
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
+// Reserved for jQuery event handlers
 //----------END EVENT HANDLERS----------
 
 //----------BEGIN PUBLIC METHODS----------
-//----------END PUBLIC METHODS----------
 
+// Begin Public method /initModule/
+initModule = function ( $container ) {
+  stateMap.$container = $container;
+  $container.html( configMap.main_html );
+  setJqueryMap();
+};
+// End Public method /initModule/
+  return { initModule : initModule };
+//----------END PUBLIC METHODS----------
 })();
