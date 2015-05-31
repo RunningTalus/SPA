@@ -58,17 +58,18 @@
   width      : 250px;
   background : #EEEEEE;
 }
-.spa-x-closed .spa-shell-main-nav {
-  left : 0;
-}
+  .spa-x-closed .spa-shell-main-nav {
+    left : 0;
+  }
+
 .spa-shell-main-content {
   left       : 250px;
   right      : 0;
   background : #DDDDDD;
 }
-.spa-x-closed .spa-shell-main-content {
-  left: 0;
-}
+  .spa-x-closed .spa-shell-main-content {
+    left: 0;
+  }
 
 .spa-shell-foot {
   bottom : 0;
