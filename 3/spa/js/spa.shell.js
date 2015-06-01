@@ -47,8 +47,11 @@ spa.shell = (function () {
 // Begin DOM method /setJqueryMap/
 setJqueryMap = function () {
   var $container = stateMap.$container;
-  jqueryMap = { $container : $container };
+  jqueryMap = {
+    $container : $container,
+    $chat : $container.find('.spa-shell-chat')
   };
+};
 // End DOM method /setJqueryMap/
 
 //Begin DOM method /toggleChat/
