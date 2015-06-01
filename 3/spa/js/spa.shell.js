@@ -55,11 +55,25 @@ setJqueryMap = function () {
 // End DOM method /setJqueryMap/
 
 //Begin DOM method /toggleChat/
-//Purpose   :
-//Settings  :
+//Purpose   : Extends or retracts chat slider
 //Arguments :
-//Returns   :
-  toggleChat = function(){};
+//   * do_extend - if true, extend slider; if false, retract slider
+//   * callback - optional function to execute at the end of animation
+//Settings  :
+//   * chat_extend time, chat_retract time
+//   * chat_extend_height, chat_retract_height
+//Returns   : boolean
+//   * true - slider animation activated
+//   * false - slider animation not activated
+//
+  toggleChat = function(){
+    // Avoid race condition
+    // Begin extend chat slider
+    // End extend chat slider
+    // End extend chat slider
+    // Begin retract chat slider
+    // End retract chat slider
+  };
 //End DOM method /toggleChat/
 //----------END DOM METHODS----------
 
