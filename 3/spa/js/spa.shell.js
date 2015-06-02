@@ -15,6 +15,9 @@ spa.shell = (function() {
 //----------BEGIN MODULE SCOPE VARIABLES----------
   var
     configMap = {
+      anchor_schema_map : {
+        chat : { open : true, closed : true }
+      },
       main_html : String()
       + '<div class="spa-shell-head">'
         + '<div class="spa-shell-head-logo"></div>'
@@ -37,11 +40,14 @@ spa.shell = (function() {
     },
     stateMap = {
       $container        : null,
+      anchor_map        : {},
       is_chat_retracted : true
     },
     jqueryMap = {},
 
-    setJqueryMap, toggleChat, onClickChat, initModule;
+    copyAnchorMap, setJqueryMap, toggleChat,
+    changeAnchorPart, onHashChange,
+    onClickChat, initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
