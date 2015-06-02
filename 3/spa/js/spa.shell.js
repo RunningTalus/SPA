@@ -11,7 +11,7 @@
  */
 /*global $, spa */
 
-spa.shell = (function () {
+spa.shell = (function() {
 //----------BEGIN MODULE SCOPE VARIABLES----------
   var
     configMap = {
@@ -27,7 +27,7 @@ spa.shell = (function () {
       + '</div>'
       + '<div class="spa-shell-foot"></div>'
       + '<div class="spa-shell-chat"></div>'
-      + '<div class="spa-shell-modal"></div>'
+      + '<div class="spa-shell-modal"></div>',
       chat_extend_time : 1000,
       chat_retract_time : 300,
       chat_extend_height : 450,
@@ -95,13 +95,13 @@ setJqueryMap = function () {
     // End extend chat slider
 
     // Begin retract chat slider
-    jQueryMap.$chat.animate({
+    jQueryMap.$chat.animate ({
         height : configMap.chat_retract_height
       },
       configMap.chat_retract_time,
       function () {
         if ( callback ){
-          callback (jqueryMap.$chat);
+          callback ( jqueryMap.$chat );
         }
       }
     );
@@ -119,9 +119,18 @@ setJqueryMap = function () {
 
 // Begin Public method /initModule/
 initModule = function ( $container ) {
+  // load HTML and map jQuery collections
   stateMap.$container = $container;
   $container.html( configMap.main_html );
   setJqueryMap();
+
+  // test toggle
+  setTimeout( function () {
+    toggleChat( true );
+  }, 3000);
+  setTimeout( function () {
+    toggleChat( false );
+  }, 8000);
 };
 // End Public method /initModule/
   return { initModule : initModule };
