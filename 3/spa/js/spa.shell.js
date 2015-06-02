@@ -70,6 +70,9 @@ setJqueryMap = function () {
 //Returns   : boolean
 //   * true - slider animation activated
 //   * false - slider animation not activated
+//State     : sets stateMap.is_chat_retracted
+//   * true - slider is retracted
+//   * false - slider is extended
 //
   toggleChat = function ( do_extend, callback ) {
     var
