@@ -28,15 +28,20 @@ spa.shell = (function() {
       + '<div class="spa-shell-foot"></div>'
       + '<div class="spa-shell-chat"></div>'
       + '<div class="spa-shell-modal"></div>',
-      chat_extend_time : 1000,
-      chat_retract_time : 300,
-      chat_extend_height : 450,
-      chat_retract_height : 15
+      chat_extend_time     : 1000,
+      chat_retract_time    : 300,
+      chat_extend_height   : 450,
+      chat_retract_height  : 15,
+      chat_extended_title  : 'Click to retract',
+      chat_retracted_title : 'Click to extend'
     },
-    stateMap = { $container : null },
+    stateMap = {
+      $container        : null,
+      is_chat_retracted : true
+    },
     jqueryMap = {},
 
-    setJqueryMap, toggleChat, initModule;
+    setJqueryMap, toggleChat, onClickChat, initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
