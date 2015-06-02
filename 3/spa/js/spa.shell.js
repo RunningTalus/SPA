@@ -93,6 +93,10 @@ setJqueryMap = function () {
         },
         configMap.chat_extend_time,
         function () {
+          jqueryMap.$chat.attr(
+            'title', configMap.chat_extended_title
+          );
+          stateMap.is_chat_retracted = false;
           if ( callback ){
             callback( jqueryMap.$chat );
           }
@@ -107,6 +111,10 @@ setJqueryMap = function () {
         height : configMap.chat_retract_height
       },
       configMap.chat_retract_time,
+      jqueryMap.$chat.attr(
+        'title', configMap.chat_retracted_title
+      );
+      stateMap.is_chat_retracted = true;
       function () {
         if ( callback ){
           callback ( jqueryMap.$chat );
