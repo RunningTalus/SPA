@@ -52,6 +52,9 @@ spa.shell = (function() {
 
 //----------BEGIN UTILITY METHODS----------
 // Returns copy of stored anchor map; minimizes overhead
+copyAnchorMap = function () {
+  return $.extend( true, {}, stateMap.anchor_map );
+};
 //----------END UTILITY METHODS----------
 
 //----------BEGIN DOM METHODS----------
