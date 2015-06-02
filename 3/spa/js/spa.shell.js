@@ -45,7 +45,7 @@ spa.shell = (function() {
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
-// Reserved for functions that don't interact with page elements.
+// Returns copy of stored anchor map; minimizes overhead
 //----------END UTILITY METHODS----------
 
 //----------BEGIN DOM METHODS----------
@@ -118,10 +118,71 @@ setJqueryMap = function () {
     return true;
     // End retract chat slider
   };
-//End DOM method /toggleChat/
+// End DOM method /toggleChat/
+
+// Begin DOM method /changeAnchorPart/
+// Purpose   : Changes part of the URI anchor component
+// Arguments :
+//  * arg_map - The map describing what part of the URI anchor we want
+//    changed
+// Returns   : boolean
+// * true - the Anchor portion of the URI was updated
+// * false - the Anchor portion of the URI could not be updated
+// Action    :
+//   The current anchor rep stored in stateMap.anchor_map
+//   See uriAnchor for a discussion of encoding.
+//   This method
+//     * Creates a copy of this map using copyAnchorMap()
+//     * Modifies the key-values using arg_map
+//     * Manages the distinction between independent
+//       and dependent values in the encoding
+//     * Attempts to change the URI using uriAnchor
+//     * Returns true on success, and false on failure
+//
+changeAnchor = function () {
+  // Begin merge changes into anchor map
+
+    // skip dependent keys during iteration
+
+    // update independent key value
+
+    // update matching dependent key
+
+  // End merge changes into anchor map
+
+  // Begin attempt to update URI, revert if not successful
+
+  // End attempt to update URI
+};
+// End DOM method /changeAnchorPart/
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
+// Begin Event handler /onHashChange/
+// Purpose   : Handles the hash change event
+// Arguments :
+//  * event - jQuery event object
+// Settings  : none
+// Returns   : false
+// Action    :
+//  * Parses the URI anchor component
+//  * Compares proposed application state with current state
+//  * Adjust the application only where proposed state
+//    differs from existing
+//
+onHashChange = function () {
+  // attempt to parse anchor
+
+  // convenience vars
+
+  // Begin adjust chat component if changed
+
+  // End adjust chat component if changed
+
+};
+// End Event handler /onHashChange/
+
+// Begin Event handler /onClickChat/
 onClickChat = function ( event ) {
   if ( toggleChat( stateMap.is_chat_retracted ) ) {
     $.uriAnchor.setAnchor({
@@ -130,25 +191,32 @@ onClickChat = function ( event ) {
   }
   return false;
 };
-
+// End Event handler /onClickChat/
 //----------END EVENT HANDLERS----------
 
 //----------BEGIN PUBLIC METHODS----------
 
 // Begin Public method /initModule/
-initModule = function ( $container ) {
-  // load HTML and map jQuery collections
-  stateMap.$container = $container;
-  $container.html( configMap.main_html );
-  setJqueryMap();
+  initModule = function ( $container ) {
+    // load HTML and map jQuery collections
+    stateMap.$container = $container;
+    $container.html( configMap.main_html );
+    setJqueryMap();
 
-  // initialize chat slider and bind click handler
-  stateMap.is_chat_retracted = true;
-  jqueryMap.$chat
-    .attr( 'title', configMap.chat_retracted_title )
-    .click( onClickChat );
+    // initialize chat slider and bind click handler
+    stateMap.is_chat_retracted = true;
+    jqueryMap.$chat
+      .attr( 'title', configMap.chat_retracted_title )
+      .click( onClickChat );
 
-};
+    // configure uriAnchor to use our schema
+
+    // Handle URI anchor change events
+    // This is done /after/ all feature modules are configured
+    // and initialized, otherwise they will not be ready to handle the
+    // trigger event, which is used to ensure the anchor is considered
+    // on-load
+  };
 // End Public method /initModule/
   return { initModule : initModule };
 //----------END PUBLIC METHODS----------
