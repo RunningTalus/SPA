@@ -128,7 +128,11 @@ setJqueryMap = function () {
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
-// Reserved for jQuery event handlers
+onClickChat = function (event) {
+  toggleChat( stateMap.is_chat_retracted );
+  return false;
+};
+
 //----------END EVENT HANDLERS----------
 
 //----------BEGIN PUBLIC METHODS----------
