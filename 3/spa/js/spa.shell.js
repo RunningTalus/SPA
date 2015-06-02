@@ -107,18 +107,12 @@ setJqueryMap = function () {
     // End extend chat slider
 
     // Begin retract chat slider
-    jQueryMap.$chat.animate ({
-        height : configMap.chat_retract_height
-      },
+    jqueryMap.$chat.animate({height : configMap.chat_retract_height},
       configMap.chat_retract_time,
-      jqueryMap.$chat.attr(
-        'title', configMap.chat_retracted_title
-      );
-      stateMap.is_chat_retracted = true;
       function () {
-        if ( callback ){
-          callback ( jqueryMap.$chat );
-        }
+        jqueryMap.$chat.attr('title', configMap.chat_retracted_title);
+        stateMap.is_chat_retracted = true;
+      if(callback){callback(jqueryMap.$chat);}
       }
     );
     return true;
@@ -144,13 +138,12 @@ initModule = function ( $container ) {
   $container.html( configMap.main_html );
   setJqueryMap();
 
-  // test toggle
-  setTimeout( function () {
-    toggleChat( true );
-  }, 3000);
-  setTimeout( function () {
-    toggleChat( false );
-  }, 8000);
+  // initialize chat slider and bind click handler
+  stateMap.is_chat_retracted = true;
+  jqueryMap.$chat
+    .attr( 'title', configMap.chat_retracted_title )
+    .click( onClickChat );
+
 };
 // End Public method /initModule/
   return { initModule : initModule };
