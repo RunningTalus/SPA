@@ -122,8 +122,12 @@ setJqueryMap = function () {
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
-onClickChat = function (event) {
-  toggleChat( stateMap.is_chat_retracted );
+onClickChat = function ( event ) {
+  if ( toggleChat( stateMap.is_chat_retracted ) ) {
+    $.uriAnchor.setAnchor({
+      chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
+    });
+  }
   return false;
 };
 
