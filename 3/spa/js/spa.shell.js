@@ -66,12 +66,46 @@ setJqueryMap = function () {
 //   * true - slider animation activated
 //   * false - slider animation not activated
 //
-  toggleChat = function(){
+  toggleChat = function ( do_extend, callback ) {
+    var
+      px_chat_ht = jqueryMap.$chat.height(),
+      is_open = px_chat_ht === configMap.chat_extend_height,
+      is_closed = px_chat_ht === configMap.chat_retract_height,
+      is_sliding = ! is_open && ! is_closed;
+
     // Avoid race condition
+    if ( is_sliding ) {
+      return false;
+    }
+
     // Begin extend chat slider
+    if ( do_extend ) {
+      jqueryMap.$chat.animate ({
+          height : configMap.chat_extend_height
+        },
+        configMap.chat_extend_time,
+        function () {
+          if ( callback ){
+            callback( jqueryMap.$chat );
+          }
+        }
+      );
+      return true;
+    }
     // End extend chat slider
-    // End extend chat slider
+
     // Begin retract chat slider
+    jQueryMap.$chat.animate({
+        height : configMap.chat_retract_height
+      },
+      configMap.chat_retract_time,
+      function () {
+        if ( callback ){
+          callback (jqueryMap.$chat);
+        }
+      }
+    );
+    return true;
     // End retract chat slider
   };
 //End DOM method /toggleChat/
