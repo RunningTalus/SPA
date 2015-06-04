@@ -208,15 +208,43 @@ changeAnchorPart = function (arg_map) {
 //  * Adjust the application only where proposed state
 //    differs from existing
 //
-onHashChange = function () {
+onHashChange = function ( event ) {
+  var
+    anchor_map_previous = copyAnchorMap(),
+    anchor_map_proposed,
+    _s_chat_previous, _s_chat_proposed, s_chat_proposed;
+
   // attempt to parse anchor
+  try { anchor_map_proposed = $.uriAnchor.makeAnchorMap(); }
+  catch ( error ) {
+    $.uriAnchor.setAnchor( anchor_map_previous, null, true );
+    return false;
+  }
+  stateMap.anchor_map = anchor_map_proposed;
 
   // convenience vars
+  _s_chat_previous = anchor_map_previous._s_chat;
+  _s_chat_proposed = anchor_map_proposed._s_chat;
 
   // Begin adjust chat component if changed
-
+  if ( ! anchor_map_previous || _s_chat_previous !== _s_chat_proposed ) {
+    _s_chat_proposed = anchor_map_proposed.chat;
+    switch ( s_chat_proposed ) {
+      case 'open' :
+        toggleChat( true );
+      break;
+      case 'closed' :
+        toggleChat( false );
+      break;
+      default :
+        toggleChat( false );
+        delete anchor_map_proposed.chat;
+        $.uriAnchor.setAnchor( anchor_map_proposed, null, true );
+    }
+  }
   // End adjust chat component if changed
 
+  return false;
 };
 // End Event handler /onHashChange/
 
