@@ -276,12 +276,18 @@ onClickChat = function ( event ) {
       .click( onClickChat );
 
     // configure uriAnchor to use our schema
+    $.uriAnchor.configModule({
+      schema_map : configMap.anchor_schema_map
+    });
 
     // Handle URI anchor change events
     // This is done /after/ all feature modules are configured
     // and initialized, otherwise they will not be ready to handle the
     // trigger event, which is used to ensure the anchor is considered
     // on-load
+    $( window )
+      .bind ( 'hashchange', onHashChange )
+      .trigger( 'hashchange');
   };
 // End Public method /initModule/
   return { initModule : initModule };
