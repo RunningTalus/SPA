@@ -46,7 +46,7 @@ spa.shell = (function() {
     jqueryMap = {},
 
     copyAnchorMap, setJqueryMap, toggleChat,
-    changeAnchorPart, onHashChange,
+    changeAnchorPart, onhashChange,
     onClickChat, initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
@@ -196,7 +196,7 @@ changeAnchorPart = function (arg_map) {
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
-// Begin Event handler /onHashChange/
+// Begin Event handler /onhashChange/
 // Purpose   : Handles the hash change event
 // Arguments :
 //  * event - jQuery event object
@@ -208,7 +208,7 @@ changeAnchorPart = function (arg_map) {
 //  * Adjust the application only where proposed state
 //    differs from existing
 //
-onHashChange = function ( event ) {
+onhashChange = function ( event ) {
   var
     anchor_map_previous = copyAnchorMap(),
     anchor_map_proposed,
@@ -246,7 +246,7 @@ onHashChange = function ( event ) {
 
   return false;
 };
-// End Event handler /onHashChange/
+// End Event handler /onhashChange/
 
 // Begin Event handler /onClickChat/
 onClickChat = function ( event ) {
@@ -286,7 +286,7 @@ onClickChat = function ( event ) {
     // trigger event, which is used to ensure the anchor is considered
     // on-load
     $( window )
-      .bind ( 'hashchange', onHashChange )
+      .bind ( 'hashchange', onhashChange )
       .trigger( 'hashchange');
   };
 // End Public method /initModule/
