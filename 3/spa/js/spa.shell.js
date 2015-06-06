@@ -46,7 +46,7 @@ spa.shell = (function() {
     jqueryMap = {},
 
     copyAnchorMap, setJqueryMap, toggleChat,
-    changeAnchorPart, onhashChange,
+    changeAnchorPart, onHashchange,
     onClickChat, initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
@@ -151,7 +151,9 @@ setJqueryMap = function () {
 changeAnchorPart = function (arg_map) {
   var
     anchor_map_revise = copyAnchorMap(),
-    bool_return = true, key_name, key_name_dep;
+    bool_return = true,
+    key_name,
+    key_name_dep;
 
   // Begin merge changes into anchor map
   KEYVAL:
@@ -159,9 +161,7 @@ changeAnchorPart = function (arg_map) {
     if ( arg_map.hasOwnProperty( key_name ) ) {
 
       // skip dependent keys during iteration
-      if ( key_name.indexOf( '_' ) === 0 ) {
-        continue KEYVAL;
-      }
+      if ( key_name.indexOf( '_' ) === 0 ) {continue KEYVAL;}
 
       // update independent key value
       anchor_map_revise[key_name] = arg_map[key_name];
@@ -181,11 +181,11 @@ changeAnchorPart = function (arg_map) {
 
   // Begin attempt to update URI, revert if not successful
   try {
-    $.uriAnchor.setAnchor ( anchor_map_revise );
+    $.uriAnchor.setAnchor( anchor_map_revise );
   }
   catch ( error ) {
     // replace URI with existing state
-    $.uriAnchor.setAnchor( stateMap.anchor_map, null, true );
+    $.uriAnchor.setAnchor( stateMap.anchor_map,null,true );
     bool_return = false;
   }
   // End attempt to update URI
@@ -196,8 +196,8 @@ changeAnchorPart = function (arg_map) {
 //----------END DOM METHODS----------
 
 //----------BEGIN EVENT HANDLERS----------
-// Begin Event handler /onhashChange/
-// Purpose   : Handles the hash change event
+// Begin Event handler /onHashchange/
+// Purpose   : Handles the hashchange event
 // Arguments :
 //  * event - jQuery event object
 // Settings  : none
@@ -208,16 +208,18 @@ changeAnchorPart = function (arg_map) {
 //  * Adjust the application only where proposed state
 //    differs from existing
 //
-onhashChange = function ( event ) {
+onHashchange = function (event) {
   var
     anchor_map_previous = copyAnchorMap(),
     anchor_map_proposed,
-    _s_chat_previous, _s_chat_proposed, s_chat_proposed;
+    _s_chat_previous,
+    _s_chat_proposed,
+    s_chat_proposed;
 
   // attempt to parse anchor
   try { anchor_map_proposed = $.uriAnchor.makeAnchorMap(); }
-  catch ( error ) {
-    $.uriAnchor.setAnchor( anchor_map_previous, null, true );
+  catch (error) {
+    $.uriAnchor.setAnchor( anchor_map_previous,null,true );
     return false;
   }
   stateMap.anchor_map = anchor_map_proposed;
@@ -229,7 +231,7 @@ onhashChange = function ( event ) {
   // Begin adjust chat component if changed
   if ( ! anchor_map_previous || _s_chat_previous !== _s_chat_proposed ) {
     _s_chat_proposed = anchor_map_proposed.chat;
-    switch ( s_chat_proposed ) {
+    switch (s_chat_proposed) {
       case 'open' :
         toggleChat( true );
       break;
@@ -246,15 +248,13 @@ onhashChange = function ( event ) {
 
   return false;
 };
-// End Event handler /onhashChange/
+// End Event handler /onHashchange/
 
 // Begin Event handler /onClickChat/
-onClickChat = function ( event ) {
-  if ( toggleChat( stateMap.is_chat_retracted ) ) {
-    $.uriAnchor.setAnchor({
-      chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
-    });
-  }
+onClickChat = function (event) {
+  changeAnchorPart({
+    chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
+  });
   return false;
 };
 // End Event handler /onClickChat/
@@ -263,7 +263,7 @@ onClickChat = function ( event ) {
 //----------BEGIN PUBLIC METHODS----------
 
 // Begin Public method /initModule/
-  initModule = function ( $container ) {
+  initModule = function ($container) {
     // load HTML and map jQuery collections
     stateMap.$container = $container;
     $container.html( configMap.main_html );
@@ -285,9 +285,10 @@ onClickChat = function ( event ) {
     // and initialized, otherwise they will not be ready to handle the
     // trigger event, which is used to ensure the anchor is considered
     // on-load
-    $( window )
-      .bind ( 'hashchange', onhashChange )
-      .trigger( 'hashchange');
+    //
+    $(window)
+      .bind ( 'hashchange', onHashchange )
+      .trigger( 'hashchange' );
   };
 // End Public method /initModule/
   return { initModule : initModule };
