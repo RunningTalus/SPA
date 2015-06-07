@@ -9,7 +9,7 @@
  regexp : true, sloppy  : true,     vars : false,
  white  : true
  */
-/*global $, spa */
+/*global $, spa : true */
 
 spa.shell = (function() {
 //----------BEGIN MODULE SCOPE VARIABLES----------
@@ -232,16 +232,16 @@ onHashchange = function (event) {
   _s_chat_proposed = anchor_map_proposed._s_chat;
 
   // Begin adjust chat component if changed
-  if ( ! anchor_map_previous || _s_chat_previous !== _s_chat_proposed ) {
-    _s_chat_proposed = anchor_map_proposed.chat;
-    switch (s_chat_proposed) {
-      case 'open' :
+  if ( ! anchor_map_previous || _s_chat_previous !== _s_chat_proposed) {
+    s_chat_proposed = anchor_map_proposed.chat;
+    switch ( s_chat_proposed ) {
+      case 'open'   :
         toggleChat( true );
-      break;
+        break;
       case 'closed' :
         toggleChat( false );
-      break;
-      default :
+        break;
+      default  :
         toggleChat( false );
         delete anchor_map_proposed.chat;
         $.uriAnchor.setAnchor( anchor_map_proposed, null, true );
@@ -250,7 +250,7 @@ onHashchange = function (event) {
   // End adjust chat component if changed
 
   return false;
-};
+  };
 // End Event handler /onHashchange/
 
 // Begin Event handler /onClickChat/
