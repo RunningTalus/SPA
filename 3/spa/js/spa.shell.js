@@ -45,9 +45,13 @@ spa.shell = (function() {
     },
     jqueryMap = {},
 
-    copyAnchorMap, setJqueryMap, toggleChat,
-    changeAnchorPart, onHashchange,
-    onClickChat, initModule;
+    copyAnchorMap,
+    setJqueryMap,
+    toggleChat,
+    changeAnchorPart,
+    onHashchange,
+    onClickChat,
+    initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
 //----------BEGIN UTILITY METHODS----------
@@ -97,9 +101,8 @@ setJqueryMap = function () {
 
     // Begin extend chat slider
     if ( do_extend ) {
-      jqueryMap.$chat.animate ({
-          height : configMap.chat_extend_height
-        },
+      jqueryMap.$chat.animate (
+        {height : configMap.chat_extend_height},
         configMap.chat_extend_time,
         function () {
           jqueryMap.$chat.attr(
@@ -158,7 +161,7 @@ changeAnchorPart = function (arg_map) {
   // Begin merge changes into anchor map
   KEYVAL:
   for ( key_name in arg_map ) {
-    if ( arg_map.hasOwnProperty( key_name ) ) {
+    if ( arg_map.hasOwnProperty( key_name )) {
 
       // skip dependent keys during iteration
       if ( key_name.indexOf( '_' ) === 0 ) {continue KEYVAL;}
