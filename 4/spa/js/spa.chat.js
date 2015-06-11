@@ -18,15 +18,16 @@ spa.chat = (function () {
     configMap = {
       main_html : String()
       + '<div style="padding:1em; color:#FFFFFF;">'
-      + 'Say hello to chat'
+      + 'Yay, the chat module is working!'
       + '</div>',
       settable_map : {}
     },
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    setJqueryMap, configModule, initModule
-    ;
+    setJqueryMap,
+    configModule,
+    initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -34,7 +35,10 @@ spa.chat = (function () {
 
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
-
+  setJqueryMap = function() {
+    var $container = stateMap.$container;
+    jqueryMap = { $container : $container };
+  };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
