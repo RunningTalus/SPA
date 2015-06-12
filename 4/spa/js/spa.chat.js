@@ -55,7 +55,14 @@ spa.chat = (function () {
   // Returns    : true
   // Throws     : none
   //
-
+  configModule = function (input_map) {
+    spa.util.setConfigMap({
+      input_map : input_map,
+      settable_map : configMap.settable_map,
+      config_map : configMap
+    });
+    return true;
+  };
   // End public method /configModule/
 
   // Begin public method /initModule/
