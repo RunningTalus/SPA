@@ -40,6 +40,24 @@ spa.chat = (function () {
     jqueryMap = { $container : $container };
   };
   // End DOM method /setJqueryMap/
+
+  // Begin DOM method /setSliderPosition/
+  // Example : spa.chat.setSlider.Position( 'closed' );
+  // Purpose : Ensure chat slider is in the requested state.
+  // Arguments :
+  //   * position_type - enum( 'closed', 'opened', or 'hidden')
+  //   * callback - optional callback at end of animation
+  //     (callback receives slider DOM element as argument)
+  // Action :
+  //   Leaves slider in current state if it matches requested,
+  //   otherwise animate to requested state.
+  // Returns :
+  //   * true  - requested state achieved
+  //   * false - requested state not achieved
+  // Throws : none
+  //
+
+  // End DOM method /setSliderPosition/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
