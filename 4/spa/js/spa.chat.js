@@ -72,10 +72,19 @@ spa.chat = (function () {
   // Returns    : true
   // Throws     : none
   //
-
+  initModule = function ( $container ) {
+    $container.html { configMap.main_html };
+    stateMap.$container = $container;
+    setJqueryMap();
+    return true;
+  };
   // End public method /initModule/
 
   // return public methods
+  return {
+    configModule : configModule,
+    initModule   : initModule
+  };
 
   //------------------- END PUBLIC METHODS ---------------------
 }());
