@@ -73,7 +73,7 @@ spa.chat = (function () {
   // Throws     : none
   //
   initModule = function ( $container ) {
-    $container.html { configMap.main_html };
+    $container.html( configMap.main_html );
     stateMap.$container = $container;
     setJqueryMap();
     return true;
