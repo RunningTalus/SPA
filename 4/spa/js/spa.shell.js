@@ -51,6 +51,7 @@ spa.shell = (function() {
     changeAnchorPart,
     onHashchange,
     onClickChat,
+    setChatAnchor,
     initModule;
 //-----------END MODULE SCOPE VARIABLES----------
 
@@ -262,6 +263,26 @@ onClickChat = function (event) {
 };
 // End Event handler /onClickChat/
 //----------END EVENT HANDLERS----------
+
+//----------BEGIN CALLBACKS-----------
+// Begin callback method for /setChatAnchor/
+// Example   : setChatAnchor( 'closed' );
+// Purpose   : Change the chat component of the anchor
+// Arguments :
+//   * position_type - may be 'closed' or 'opened'
+// Action    :
+//   Changes the URI anchor parameter 'chat' to the requested value if
+//   possible.
+// Returns   :
+//   * true  - requested anchor part was updated
+//   * false - requested anchor part was not updated
+// Throws    : none
+//
+
+  setChatAnchor = function () {
+  };
+// End callback method for /setChatAnchor/
+//----------END CALLBACKS----------
 
 //----------BEGIN PUBLIC METHODS----------
 
