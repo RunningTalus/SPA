@@ -78,10 +78,16 @@ spa.chat = (function () {
   // End public method /configModule/
 
   // Begin public method /initModule/
-  // Purpose    : Initializes module
+  // Example    : spa.chat.initModule( $('#div_id') );
+  // Purpose    : Directs Chat to offer its capability to the user
   // Arguments  :
-  //  * $container the jquery element used by this feature
-  // Returns    : true
+  //  * $append_target (example: $('#div_id') )
+  //    A jQuery collection that should represent a single DOM container
+  // Action     :
+  //   Appends the chat slider to the provided container and fills it with
+  //   HTML content.  It then initializes the elements, events, and handlers
+  //   to provide the user with a chat-room interface.
+  // Returns    : true on success, false on failure
   // Throws     : none
   //
   initModule = function ( $container ) {
