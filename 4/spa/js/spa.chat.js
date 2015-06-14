@@ -207,8 +207,16 @@ spa.chat = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  onClickToggle = function() {
-
+  onClickToggle = function ( event ) {
+    var
+      set_chat_anchor = configMap.set_chat_anchor;
+    if ( stateMap.position_type === 'opened' ) {
+      set_chat_anchor( 'closed' );
+    }
+    else if ( stateMap.position_type === 'closed' ) {
+      set_chat_anchor( 'opened' );
+    }
+    return false;
   };
   //-------------------- END EVENT HANDLERS --------------------
 
