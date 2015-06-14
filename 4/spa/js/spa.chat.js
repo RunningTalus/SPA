@@ -130,7 +130,7 @@ spa.chat = (function () {
   };
   // End DOM method /setPxSizes/
 
-  // Begin DOM method /setSliderPosition/
+  // Begin public DOM method /setSliderPosition/
   // Example : spa.chat.setSlider.Position( 'closed' );
   // Purpose : Ensure chat slider is in the requested state.
   // Arguments :
@@ -147,16 +147,62 @@ spa.chat = (function () {
   //
 
   setSliderPosition = function() {
+    var
+      height_px,
+      animate_time,
+      slider_title,
+      toggle_text;
+
     // return true if slider already in requested position
+    if ( stateMap.position_type === position_type ){
+      return true;
+    }
 
     // prepare animate parameters
+    switch (position_type){
+      case 'opened' :
+        height_px = stateMap.slider_opened_px;
+        animate_time = configMap.slider_open_time;
+        slider_title = configMap.slider_opened_title;
+        toggle_text = '=';
+      break;
 
-    // bail for unknown position_type
+      case 'hidden' :
+        height_px = 0;
+        animate_time = configMap.slider_open_time;
+        slider_title = '';
+        toggle_text = '+';
+      break;
+
+      case 'closed' :
+        height_px = stateMap.slider_closed_px;
+        animate_time = configMap.slider_close_time;
+        slider_title = configMap.slider_closed_title;
+        toggle_text = '+';
+      break;
+
+      // bail for unknown position_type
+      default : return false;
+    }
 
     // animate slider position change
+    stateMap.position_type = '';
 
+    jqueryMap.$slider.animate(
+      { height : height_px },
+      animate_time,
+      function () {
+        jqueryMap.$toggle.prop('title', slider_title);
+        jqueryMap.$toggle.text(toggle_text);
+        stateMap.position_type = position_type;
+        if (callback) {
+          callback( jqueryMap.$slider );
+        }
+      }
+    );
+    return true;
   };
-  // End DOM method /setSliderPosition/
+  // End public DOM method /setSliderPosition/
 
   //---------------------- END DOM METHODS ---------------------
 
