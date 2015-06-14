@@ -16,7 +16,7 @@ spa.shell = (function() {
   var
     configMap = {
       anchor_schema_map : {
-        chat : { open : true, closed : true }
+        chat : { opened : true, closed : true }
       },
       main_html : String()
       + '<div class="spa-shell-head">'
@@ -29,28 +29,15 @@ spa.shell = (function() {
         + '<div class="spa-shell-main-content"></div>'
       + '</div>'
       + '<div class="spa-shell-foot"></div>'
-      + '<div class="spa-shell-chat"></div>'
-      + '<div class="spa-shell-modal"></div>',
-      chat_extend_time     : 250,
-      chat_retract_time    : 300,
-      chat_extend_height   : 450,
-      chat_retract_height  : 15,
-      chat_extended_title  : 'Click to retract',
-      chat_retracted_title : 'Click to extend'
+      + '<div class="spa-shell-modal"></div>'
     },
-    stateMap = {
-      $container        : null,
-      anchor_map        : {},
-      is_chat_retracted : true
-    },
+    stateMap = {anchor_map : {} },
     jqueryMap = {},
 
     copyAnchorMap,
     setJqueryMap,
-    toggleChat,
     changeAnchorPart,
     onHashchange,
-    onClickChat,
     setChatAnchor,
     initModule;
 //-----------END MODULE SCOPE VARIABLES----------
