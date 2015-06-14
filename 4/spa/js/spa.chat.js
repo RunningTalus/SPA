@@ -77,9 +77,8 @@ spa.chat = (function () {
     setSliderPosition,
     onClickToggle,
     configModule,
-    initModule,
-    removeSlider,
-    handleResize;
+    initModule;
+
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -161,24 +160,24 @@ spa.chat = (function () {
     // prepare animate parameters
     switch (position_type){
       case 'opened' :
-        height_px = stateMap.slider_opened_px;
+        height_px    = stateMap.slider_opened_px;
         animate_time = configMap.slider_open_time;
         slider_title = configMap.slider_opened_title;
-        toggle_text = '=';
+        toggle_text  = '=';
       break;
 
       case 'hidden' :
-        height_px = 0;
+        height_px    = 0;
         animate_time = configMap.slider_open_time;
         slider_title = '';
-        toggle_text = '+';
+        toggle_text  = '+';
       break;
 
       case 'closed' :
-        height_px = stateMap.slider_closed_px;
+        height_px    = stateMap.slider_closed_px;
         animate_time = configMap.slider_close_time;
         slider_title = configMap.slider_closed_title;
-        toggle_text = '+';
+        toggle_text  = '+';
       break;
 
       // bail for unknown position_type
@@ -227,26 +226,27 @@ spa.chat = (function () {
   // Arguments  : A map of settable keys and values
   //   * set_chat_anchor - a callback to modify the URI anchor to indicate
   //     opened or closed state. This callback must return false if the
-  //     requested state cannot be me
+  //     requested state cannot be met
   //   * chat_model - the chat model object provides methods to interact
-  //     with our instant messaging.
+  //     with our instant messaging
   //   * people_model - the people model object which provides methods to
-  //     manage the list of people the model maintains.
-  //   * slider_* settings. All these are optional scalars.
+  //     manage the list of people the model maintains
+  //   * slider_* settings. All these are optional scalars
   //     See mapConfig.settable_map for a full list
   //     Example: slider_open_em is the open height in em's
   // Action     :
   //   The internal configuration data structure (configMap) is updated
-  //   with provided arguments. No other actions are taken.
+  //   with provided arguments.
+  //   No other actions are taken.
   // Returns    : true
   // Throws     : JavaScript error object and stack trace on unacceptable
   //              or missing arguments.
   //
   configModule = function (input_map) {
     spa.util.setConfigMap({
-      input_map : input_map,
+      input_map    : input_map,
       settable_map : configMap.settable_map,
-      config_map : configMap
+      config_map   : configMap
     });
     return true;
   };
@@ -265,59 +265,26 @@ spa.chat = (function () {
   // Returns    : true on success, false on failure
   // Throws     : none
   //
-  initModule = function ( $container ) {
-    $container.html( configMap.main_html );
-    stateMap.$container = $container;
+  initModule = function ( $append_target ) {
+    $append_target( configMap.main_html );
+    stateMap.$append_target = $append_target;
     setJqueryMap();
+    setPxSizes();
 
     // initialize chat slider to default title and state
+    jqueryMap.$toggle.prop( 'title', configMap.slider_closed_title );
+    jqueryMap.$head.click( onClickToggle );
+    stateMap.position_type = 'closed';
+
     return true;
   };
   // End public method /initModule/
-
-  // Begin public method /removeSlider/
-  // Purpose    :
-  //   * Removes chatSlider DOM element
-  //   * Reverts to initial state
-  //   * Removes pointers to callbacks and other data
-  // Arguments  : none
-  // Returns    : true
-  // Throws     : none
-  //
-
-  removeSlider = function() {
-  // unwind initialization and state
-  // remove DOM container; this removes event bindings too
-
-  // unwind key configurations
-  };
-  // End public method /removeSlider/
-
-  // Begin public method /handleResize/
-  // Purpose    :
-  //   Given a window resize event, adjust the presentation provided by
-  //   this module if needed
-  // Actions    :
-  //   If the window height or width falls below a given threshold,
-  //   resize the chat slider for the reduced window size.
-  // Returns    : Boolean
-  //   * false - resize not considered
-  //   * true  - resize considered
-  // Throws     : none
-  //
-  handleResize = function() {
-  // Do not do anything if we do not have a slider container
-  };
-  // End public method /handleResize/
-
 
   // return public methods
   return {
     setSliderPosition : setSliderPosition,
     configModule      : configModule,
-    initModule        : initModule,
-    removeSlider      : removeSlider,
-    handleResize      : handleResize
+    initModule        : initModule
   };
 
   //------------------- END PUBLIC METHODS ---------------------
