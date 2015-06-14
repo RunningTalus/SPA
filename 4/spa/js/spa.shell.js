@@ -31,7 +31,7 @@ spa.shell = (function() {
       + '<div class="spa-shell-foot"></div>'
       + '<div class="spa-shell-modal"></div>'
     },
-    stateMap = {anchor_map : {} },
+    stateMap = { anchor_map : {} },
     jqueryMap = {},
 
     copyAnchorMap,
@@ -134,20 +134,24 @@ changeAnchorPart = function (arg_map) {
 //  * Parses the URI anchor component
 //  * Compares proposed application state with current state
 //  * Adjust the application only where proposed state
-//    differs from existing
+//    differs from existing AND is allowed by anchor schema
 //
 onHashchange = function (event) {
   var
-    anchor_map_previous = copyAnchorMap(),
-    anchor_map_proposed,
     _s_chat_previous,
     _s_chat_proposed,
-    s_chat_proposed;
+    s_chat_proposed,
+    anchor_map_proposed,
+    is_ok = true,
+    anchor_map_previous = copyAnchorMap();
 
   // attempt to parse anchor
-  try { anchor_map_proposed = $.uriAnchor.makeAnchorMap(); }
-  catch (error) {
-    $.uriAnchor.setAnchor( anchor_map_previous,null,true );
+  try {
+    anchor_map_proposed = $.uriAnchor.makeAnchorMap();
+  }
+
+  catch(error) {
+    $.uriAnchor.setAnchor( anchor_map_previous, null, true );
     return false;
   }
   stateMap.anchor_map = anchor_map_proposed;
@@ -160,32 +164,36 @@ onHashchange = function (event) {
   if ( ! anchor_map_previous || _s_chat_previous !== _s_chat_proposed) {
     s_chat_proposed = anchor_map_proposed.chat;
     switch ( s_chat_proposed ) {
-      case 'open'   :
-        toggleChat( true );
+      case 'opened' :
+        is_ok = spa.chat.setSliderPosition( 'opened' );
         break;
       case 'closed' :
-        toggleChat( false );
+        is_ok = spa.chat.setSliderPosition( 'closed' );
         break;
       default  :
-        toggleChat( false );
+        spa.chat.setSliderPosition( 'closed' );
         delete anchor_map_proposed.chat;
         $.uriAnchor.setAnchor( anchor_map_proposed, null, true );
     }
   }
   // End adjust chat component if changed
 
+  // Begin revert anchor if slider change denied
+  if (! is_ok ){
+    if (anchor_map_previous){
+      $.uriAnchor.setAnchor( anchor_map_previous, null, true);
+      stateMap.anchor_map = anchor_map_previous;
+    } else {
+      delete anchor_map_proposed.chat;
+      $.uriAnchor.setAnchor( anchor_map_proposed, null, true );
+    }
+  }
+  // End revert anchor if slider change denied
+
   return false;
   };
 // End Event handler /onHashchange/
 
-// Begin Event handler /onClickChat/
-onClickChat = function (event) {
-  changeAnchorPart({
-    chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
-  });
-  return false;
-};
-// End Event handler /onClickChat/
 //----------END EVENT HANDLERS----------
 
 //----------BEGIN CALLBACKS-----------
@@ -202,8 +210,8 @@ onClickChat = function (event) {
 //   * false - requested anchor part was not updated
 // Throws    : none
 //
-
-  setChatAnchor = function () {
+  setChatAnchor = function ( position_type ) {
+    return changeAnchorPart({ chat : position_type });
   };
 // End callback method for /setChatAnchor/
 //----------END CALLBACKS----------
