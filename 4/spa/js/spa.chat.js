@@ -93,8 +93,20 @@ spa.chat = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function() {
-    var $container = stateMap.$container;
-    jqueryMap = { $container : $container };
+    var
+      $append_target = stateMap.$append_target,
+      $slider = $append_target.find( '.spa-chat' );
+
+    jqueryMap = {
+      $slider : $slider,
+      $head   : $slider.find( '.spa-chat-head' ),
+      $toggle : $slider.find( '.spa-chat-head-toggle' ),
+      $title  : $slider.find( '.spa-chat-head-title'),
+      $sizer  : $slider.find( '.spa-chat-sizer' ),
+      $msgs   : $slider.find( '.spa-chat-msgs' ),
+      $box    : $slider.find( '.spa-chat-box' ),
+      $input  : $slider.find( '.spa-chat-input input[type=text]' )
+    };
   };
   // End DOM method /setJqueryMap/
 
