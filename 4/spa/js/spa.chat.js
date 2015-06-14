@@ -17,12 +17,58 @@ spa.chat = (function () {
   var
     configMap = {
       main_html : String()
-      + '<div style="padding:1em; color:#FFFFFF;">'
-      + 'Yay, the chat module is working!'
-      + '</div>',
-      settable_map : {}
+        + '<div class="spa-chat">'
+          + '<div class="spa-chat-head">'
+            + '<div class="spa-chat-head-toggle">+</div>'
+            + '<div class="spa-chat-head-title">'
+              + 'Chat'
+            + '</div>'
+          + '</div>'
+          + '<div class="spa-chat-closer">x</div>'
+          + '<div class="spa-chat-sizer">'
+            + '<div class="spa-chat-msgs"></div>'
+            + '<div class="spa-chat-box">'
+              + '<input type="text"/>'
+              + '<div>send</div>'
+            + '</div>'
+          + '</div>'
+        + '</div>',
+
+      settable_map : {
+        slider_open_time    : true,
+        slider_close_time   : true,
+        slider_opened_em    : true,
+        slider_closed_em    : true,
+        slider_opened_title : true,
+        slider_closed_title : true,
+
+        chat_model      : true,
+        people_model    : true,
+        set_chat_anchor : true
+      },
+
+      slider_open_time     : 250,
+      slider_close_time    : 250,
+      slider_opened_em     : 18,
+      slider_closed_em     : 2,
+      slider_opened_title  : 'Click to close',
+      slider_closed_title  : 'Click to open',
+      slider_opened_min_em : 10,
+      window_height_min_em : 20,
+
+      chat_model      : null,
+      people_model    : null,
+      set_chat_anchor : null
     },
-    stateMap  = { $container : null },
+
+    stateMap  = {
+      $append_target   : null,
+      position_type    : 'closed',
+      px_per_em        : 0,
+      slider_hidden_px : 0,
+      slider_closed_px : 0,
+      slider_opened_px : 0
+    },
     jqueryMap = {},
 
     setJqueryMap,
@@ -37,7 +83,7 @@ spa.chat = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  getEmSizes = function() {
+  getEmSize = function() {
 
   };
   //-------------------- END UTILITY METHODS -------------------
@@ -182,7 +228,6 @@ spa.chat = (function () {
   // Do not do anything if we do not have a slider container
   };
   // End public method /handleResize/
-
 
 
   // return public methods
