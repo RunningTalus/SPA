@@ -61,7 +61,7 @@ spa.chat = (function () {
       set_chat_anchor : null
     },
 
-    stateMap  = {
+    stateMap = {
       $append_target   : null,
       position_type    : 'closed',
       px_per_em        : 0,
@@ -83,8 +83,10 @@ spa.chat = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  getEmSize = function() {
-
+  getEmSize = function( elem ) {
+    return Number(
+      getComputedStyle(elem, '').fontSize.match(/\d*\.?\d*/) [0]
+    );
   };
   //-------------------- END UTILITY METHODS -------------------
 
