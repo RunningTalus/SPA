@@ -10,7 +10,7 @@
  white  : true
  */
 
-/*global $, spa */
+/*global $, spa, getComputedStyle */
 
 spa.chat = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
@@ -26,11 +26,20 @@ spa.chat = (function () {
     jqueryMap = {},
 
     setJqueryMap,
+    getEmSize,
+    setPxSizes,
+    setSliderPosition,
+    onClickToggle,
     configModule,
-    initModule;
+    initModule,
+    removeSlider,
+    handleResize;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
+  getEmSizes = function() {
+
+  };
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -40,6 +49,13 @@ spa.chat = (function () {
     jqueryMap = { $container : $container };
   };
   // End DOM method /setJqueryMap/
+
+  // Begin DOM method /setPxSizes/
+  setPxSizes = function() {
+
+  };
+
+  // End DOM method /setPxSizes/
 
   // Begin DOM method /setSliderPosition/
   // Example : spa.chat.setSlider.Position( 'closed' );
@@ -57,10 +73,24 @@ spa.chat = (function () {
   // Throws : none
   //
 
+  setSliderPosition = function() {
+    // return true if slider already in requested position
+
+    // prepare animate parameters
+
+    // bail for unknown position_type
+
+    // animate slider position change
+
+  };
   // End DOM method /setSliderPosition/
+
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
+  onClickToggle = function() {
+
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -112,14 +142,56 @@ spa.chat = (function () {
     $container.html( configMap.main_html );
     stateMap.$container = $container;
     setJqueryMap();
+
+    // initialize chat slider to default title and state
     return true;
   };
   // End public method /initModule/
 
+  // Begin public method /removeSlider/
+  // Purpose    :
+  //   * Removes chatSlider DOM element
+  //   * Reverts to initial state
+  //   * Removes pointers to callbacks and other data
+  // Arguments  : none
+  // Returns    : true
+  // Throws     : none
+  //
+
+  removeSlider = function() {
+  // unwind initialization and state
+  // remove DOM container; this removes event bindings too
+
+  // unwind key configurations
+  };
+  // End public method /removeSlider/
+
+  // Begin public method /handleResize/
+  // Purpose    :
+  //   Given a window resize event, adjust the presentation provided by
+  //   this module if needed
+  // Actions    :
+  //   If the window height or width falls below a given threshold,
+  //   resize the chat slider for the reduced window size.
+  // Returns    : Boolean
+  //   * false - resize not considered
+  //   * true  - resize considered
+  // Throws     : none
+  //
+  handleResize = function() {
+  // Do not do anything if we do not have a slider container
+  };
+  // End public method /handleResize/
+
+
+
   // return public methods
   return {
-    configModule : configModule,
-    initModule   : initModule
+    setSliderPosition : setSliderPosition,
+    configModule      : configModule,
+    initModule        : initModule,
+    removeSlider      : removeSlider,
+    handleResize      : handleResize
   };
 
   //------------------- END PUBLIC METHODS ---------------------
