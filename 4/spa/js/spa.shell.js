@@ -219,17 +219,26 @@ onHashchange = function (event) {
 //----------BEGIN PUBLIC METHODS----------
 
 // Begin Public method /initModule/
+// Example   : spa.shell.initModule( $('#app_div_id') );
+// Purpose   :
+//   Directs the Shell to offer its capability to the user
+// Arguments :
+//   * $container (example: $('#app_div_id') );
+//   A jQuery collection that should represent a single DOM container
+// Action    :
+//   Populates $container with the shell of the UI and then configures and
+//   initializes feature modules.
+//   The Shell is also responsible for browser-wide issues such as URI
+//   anchor and cookie management.
+// Returns   : none
+// Throws    : none
+//
+
   initModule = function ($container) {
     // load HTML and map jQuery collections
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     setJqueryMap();
-
-    // initialize chat slider and bind click handler
-    stateMap.is_chat_retracted = true;
-    jqueryMap.$chat
-      .attr( 'title', configMap.chat_retracted_title )
-      .click( onClickChat );
 
     // configure uriAnchor to use our schema
     $.uriAnchor.configModule({
@@ -237,8 +246,13 @@ onHashchange = function (event) {
     });
 
     // configure and initialize feature modules
-    spa.chat.configModule( {} );
-    spa.chat.initModule( jqueryMap.$chat );
+    spa.chat.configModule({
+      set_chat_anchor : setChatAnchor,
+      chat_model      : spa.model.chat,
+      people_model    : spa.model.people
+    });
+    spa.chat.initModule( jqueryMap.$container );
+
 
     // Handle URI anchor change events
     // This is done /after/ all feature modules are configured
@@ -246,7 +260,7 @@ onHashchange = function (event) {
     // trigger event, which is used to ensure the anchor is considered
     // on-load
     //
-    $(window)
+    $( window )
       .bind ( 'hashchange', onHashchange )
       .trigger( 'hashchange' );
   };

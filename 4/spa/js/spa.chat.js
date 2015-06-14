@@ -145,7 +145,7 @@ spa.chat = (function () {
   // Throws : none
   //
 
-  setSliderPosition = function() {
+  setSliderPosition = function ( position_type, callback ) {
     var
       height_px,
       animate_time,
