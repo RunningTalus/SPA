@@ -53,72 +53,9 @@ copyAnchorMap = function () {
 // Begin DOM method /setJqueryMap/
 setJqueryMap = function () {
   var $container = stateMap.$container;
-  jqueryMap = {
-    $container : $container,
-    $chat : $container.find('.spa-shell-chat')
-  };
+  jqueryMap = { $container : $container };
 };
 // End DOM method /setJqueryMap/
-
-//Begin DOM method /toggleChat/
-//Purpose   : Extends or retracts chat slider
-//Arguments :
-//   * do_extend - if true, extend slider; if false, retract slider
-//   * callback - optional function to execute at the end of animation
-//Settings  :
-//   * chat_extend time, chat_retract time
-//   * chat_extend_height, chat_retract_height
-//Returns   : boolean
-//   * true - slider animation activated
-//   * false - slider animation not activated
-//State     : sets stateMap.is_chat_retracted
-//   * true - slider is retracted
-//   * false - slider is extended
-//
-  toggleChat = function ( do_extend, callback ) {
-    var
-      px_chat_ht = jqueryMap.$chat.height(),
-      is_open = px_chat_ht === configMap.chat_extend_height,
-      is_closed = px_chat_ht === configMap.chat_retract_height,
-      is_sliding = ! is_open && ! is_closed;
-
-    // Avoid race condition
-    if ( is_sliding ) {
-      return false;
-    }
-
-    // Begin extend chat slider
-    if ( do_extend ) {
-      jqueryMap.$chat.animate (
-        {height : configMap.chat_extend_height},
-        configMap.chat_extend_time,
-        function () {
-          jqueryMap.$chat.attr(
-            'title', configMap.chat_extended_title
-          );
-          stateMap.is_chat_retracted = false;
-          if ( callback ){
-            callback( jqueryMap.$chat );
-          }
-        }
-      );
-      return true;
-    }
-    // End extend chat slider
-
-    // Begin retract chat slider
-    jqueryMap.$chat.animate({height : configMap.chat_retract_height},
-      configMap.chat_retract_time,
-      function () {
-        jqueryMap.$chat.attr('title', configMap.chat_retracted_title);
-        stateMap.is_chat_retracted = true;
-      if(callback){callback(jqueryMap.$chat);}
-      }
-    );
-    return true;
-    // End retract chat slider
-  };
-// End DOM method /toggleChat/
 
 // Begin DOM method /changeAnchorPart/
 // Purpose   : Changes part of the URI anchor component
