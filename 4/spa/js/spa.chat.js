@@ -266,7 +266,7 @@ spa.chat = (function () {
   // Throws     : none
   //
   initModule = function ( $append_target ) {
-    $append_target( configMap.main_html );
+    $append_target.append( configMap.main_html );
     stateMap.$append_target = $append_target;
     setJqueryMap();
     setPxSizes();
