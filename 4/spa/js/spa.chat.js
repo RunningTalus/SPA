@@ -112,9 +112,22 @@ spa.chat = (function () {
 
   // Begin DOM method /setPxSizes/
   setPxSizes = function() {
+    var
+      px_per_em,
+      opened_height_em;
 
+    px_per_em = getEmSize( jqueryMap.$slider.get(0) );
+
+    opened_height_em = configMap.slider_opened_em;
+
+    stateMap.px_per_em        = px_per_em;
+    stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
+    stateMap.slider_opened_px = opened_height_em * px_per_em;
+
+    jqueryMap.$sizer.css({
+      height : (opened_height_em - 2 ) * px_per_em
+    });
   };
-
   // End DOM method /setPxSizes/
 
   // Begin DOM method /setSliderPosition/
