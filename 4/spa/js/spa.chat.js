@@ -121,6 +121,15 @@ spa.chat = (function () {
     px_per_em = getEmSize( jqueryMap.$slider.get(0) );
 
     opened_height_em = configMap.slider_opened_em;
+    window_height_em = Math.floor(
+      ($(window).height() / px_per_em ) + 0.5
+    );
+
+    // Long ternary below
+    opened_height_em
+      = window_height_em > configMap.window_height_min_em
+      ? configMap.slider_opened_em
+      : configMap.slider_opened_min_em;
 
     stateMap.px_per_em        = px_per_em;
     stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
