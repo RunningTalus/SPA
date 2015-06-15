@@ -77,7 +77,9 @@ spa.chat = (function () {
     setSliderPosition,
     onClickToggle,
     configModule,
-    initModule;
+    initModule,
+    removeSlider,
+    handleResize;
 
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -113,6 +115,7 @@ spa.chat = (function () {
   setPxSizes = function() {
     var
       px_per_em,
+      window_height_em,
       opened_height_em;
 
     px_per_em = getEmSize( jqueryMap.$slider.get(0) );
@@ -280,11 +283,67 @@ spa.chat = (function () {
   };
   // End public method /initModule/
 
+  // Begin public method /removeSlider/
+  // Purpose    :
+  //   * Removes chatSlider DOM element
+  //   * Reverts to initial state
+  //   * Removes pointers to callbacks and other data
+  // Arguments  : none
+  // Returns    : true
+  // Throws     : none
+  //
+  removeSlider = function () {
+    // unwind initialization and state
+    // remove DOM container; this removes event bindings too
+    if ( jqueryMap.$slider ) {
+      jqueryMap.$slider.remove();
+      jqueryMap = {};
+    }
+    stateMap.$append_target = null;
+    stateMap.position_type  = 'closed';
+
+    // unwind key configurations
+    configMap.chat_model      = null;
+    configMap.people_model    = null;
+    configMap.set_chat_anchor = null;
+
+    return true;
+  };
+  // End public method /removeSlider/
+
+
+  // Begin public method /handleResize/
+  // Purpose    :
+  //   Given a window resize event, adjust the presentation
+  //   provided by this module if needed
+  // Actions    :
+  //   If the window height or width falls below
+  //   a given threshold, resize the chat slider for the
+  //   reduced window size.
+  // Returns    : Boolean
+  //   * false - resize not considered
+  //   * true  - resize considered
+  // Throws     : none
+  //
+  handleResize = function () {
+    // don't do anything if we don't have a slider container
+    if ( ! jqueryMap.$slider ) { return false; }
+
+    setPxSizes();
+    if ( stateMap.position_type === 'opened' ){
+      jqueryMap.$slider.css({ height : stateMap.slider_opened_px });
+    }
+    return true;
+  };
+  // End public method /handleResize/
+
   // return public methods
   return {
     setSliderPosition : setSliderPosition,
     configModule      : configModule,
-    initModule        : initModule
+    initModule        : initModule,
+    removeSlider      : removeSlider,
+    handleResize      : handleResize
   };
 
   //------------------- END PUBLIC METHODS ---------------------
