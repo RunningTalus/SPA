@@ -20,7 +20,7 @@ h4,
 h5,
 h6,
 p {
-  margin-bottom : 10px;
+  margin-bottom : 6pt;
 }
 
 ol,
@@ -32,9 +32,9 @@ dl {
 
 /** Begin standard selectors */
 body {
-  font  : 13px 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
-  color : #444;
-  background-color: #888;
+  font  : 10pt 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+  color : #444444;
+  background-color: #888888;
 }
 
 a {
@@ -51,7 +51,7 @@ a:hover {
 }
 
 strong {
-  color       : #000;
+  color       : #000000;
   font-weight : 800;
 
 }
@@ -59,18 +59,15 @@ strong {
 
 /** Begin spa namespace selectors */
 #spa {
-  position: absolute;
-  top     : 8px;
-  left    : 8px;
-  bottom  : 8px;
-  right   : 8px;
-
-  min-height : 500px;
-  min-width  : 500px;
-  overflow   : hidden;
-
-  background-color : #fff;
-  border-radius    : 0 8px 0 8px;
+  position         : absolute;
+  top              : 0;
+  left             : 0;
+  bottom           : 0;
+  right            : 0;
+  background-color : #FFFFFF;
+  min-height       : 15em;
+  min-width        : 35em;
+  overflow         : hidden;
 }
 /** End spa namespace selectors */
 
